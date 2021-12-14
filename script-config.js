@@ -14,4 +14,5 @@ var config = {
     }*/
 }
 
-var LegendOptions = ['Nokia Smartphone','Tablet','Test'];
+var LegendOptions = ['Big Data Engineer', 'Data Analyst', 'Data Engineer',
+'Data Scientist', 'Machine Learning Engineer'];
