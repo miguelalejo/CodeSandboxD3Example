@@ -5,11 +5,13 @@ var width = 300,
 var config = {
     w: width,
     h: height,
-    maxValue: 100,
+    maxValue: 0.6,
     levels: 5,
     ExtraWidthX: 300,
-    color: function(i) {
+    /*color: function(i) {
       c = ['red', 'yellow', 'pink', 'green', 'blue', 'olive', 'aqua', 'cadetblue', 'crimson'];
       return c[i];
-    }
+    }*/
 }
+
+var LegendOptions = ['Nokia Smartphone','Tablet','Test'];
