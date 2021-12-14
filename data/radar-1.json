@@ -6,5 +6,12 @@
       {"area": "Everton ", "value": 90},
       {"area": "Picton ", "value": 60},
       {"area": "Riverside ", "value": 80}
+  	],[
+      {"area": "Central ", "value": 5},
+      {"area": "Kirkdale", "value": 4},
+      {"area": "Kensington ", "value": 3},
+      {"area": "Everton ", "value": 5},
+      {"area": "Picton ", "value": 4},
+      {"area": "Riverside ", "value": 10}
   	]
   ]
