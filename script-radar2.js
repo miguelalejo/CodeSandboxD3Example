@@ -7,7 +7,7 @@ var config = {
     h: height,
     maxValue: 100,
     levels: 5,
-    ExtraWidthX: 300,
+    ExtraWidthX: 300
 }
 
 var svg = d3.select('body')
@@ -16,9 +16,9 @@ var svg = d3.select('body')
 	.attr("width", width)
 	.attr("height", height);
 //Call function to draw the Radar chart
-d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-1.json", function(data) {
+d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-2.json", function(data) {
    
-    RadarChart.draw("#chart", data, config);
+    RadarChart.draw("#chart-2", data, config);
 });
 
 
@@ -39,7 +39,7 @@ var RadarChart = {
      TranslateY: 30,
      ExtraWidthX: 100,
      ExtraWidthY: 100,
-     color: d3.scaleOrdinal().range(["#CC333F","#53e87d"])
+     color: d3.scaleOrdinal().range(["#6F257F", "#CA0D59"])
     };
 	
     if('undefined' !== typeof options){
