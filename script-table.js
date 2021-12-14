@@ -14,7 +14,7 @@
 
   // get the data
   d3.csv(
-    "./data/1_OneNum.csv",
+    "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/1_OneNum.csv",
     function (data) {
       // X axis: scale and draw:
       var x = d3

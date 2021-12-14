@@ -16,7 +16,7 @@ var svg = d3.select('body')
 	.attr("width", width)
 	.attr("height", height);
 //Call function to draw the Radar chart
-d3.csv( "./data/radar-1.csv", function(data) {
+d3.csv( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-1.csv", function(data) {
    
     RadarChart.draw("#chart", data, config);
 });
