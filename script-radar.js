@@ -23,6 +23,7 @@ var RadarChartC = {
 	 TranslateY: 30,
 	 ExtraWidthX: 100,
 	 ExtraWidthY: 100,
+	 format:d3.format(''),
 	 color: d3.scale.category10()
 	};
 	
@@ -37,7 +38,7 @@ var RadarChartC = {
 	var allAxis = (d[0].map(function(i, j){return i.axis}));
 	var total = allAxis.length;
 	var radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
-	var Format = d3.format('%');
+	var Format = cfg.format;
 	d3.select(id).select("svg").remove();
 	
 	var g = d3.select(id)
@@ -223,21 +224,19 @@ d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/mai
   data = data.map(function(d) { return d.values })
   RadarChartC.draw("#chart-1", data, config);
   var colorscale = d3.scale.category10();
-  var w = 500,
-    h = 500;
     
   var svg = d3.select('#body')
     .selectAll('svg')
     .append('svg')
-    .attr("width", w+300)
-    .attr("height", h)
+    .attr("width", config.w)
+    .attr("height", config.h)
   
   //Create the title for the legend
   var text = svg.append("text")
     .attr("class", "title")
     .attr('transform', 'translate(90,0)') 
-    .attr("x", w - 70)
-    .attr("y", 10)
+    .attr("x", config.w - 70)
+    .attr("y", config.h - 10)
     .attr("font-size", "12px")
     .attr("fill", "#404040")
     .text("What % of owners use a specific service in a week");
@@ -254,7 +253,7 @@ d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/mai
       .data(LegendOptions)
       .enter()
       .append("rect")
-      .attr("x", w - 65)
+      .attr("x", config.w - 65)
       .attr("y", function(d, i){ return i * 20;})
       .attr("width", 10)
       .attr("height", 10)
@@ -265,7 +264,7 @@ d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/mai
       .data(LegendOptions)
       .enter()
       .append("text")
-      .attr("x", w - 52)
+      .attr("x", config.w - 52)
       .attr("y", function(d, i){ return i * 20 + 9;})
       .attr("font-size", "11px")
       .attr("fill", "#737373")

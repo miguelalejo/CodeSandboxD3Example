@@ -7,7 +7,10 @@ var config = {
     h: height,
    
     levels: 5,
-    ExtraWidthX: 300,
+    ExtraWidthX: 200,
+    ExtraWidthY: 100,
+    format: d3.format('.0f'),
+    unit: '$'
     /*color: function(i) {
       c = ['red', 'yellow', 'pink', 'green', 'blue', 'olive', 'aqua', 'cadetblue', 'crimson'];
       return c[i];
