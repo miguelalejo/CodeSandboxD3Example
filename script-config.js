@@ -5,7 +5,7 @@ var width = 300,
 var config = {
     w: width,
     h: height,
-    maxValue: 0.6,
+   
     levels: 5,
     ExtraWidthX: 300,
     /*color: function(i) {
