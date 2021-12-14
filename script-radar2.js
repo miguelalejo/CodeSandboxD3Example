@@ -1,14 +1,3 @@
-var width = 300,
-    height = 300;
-
-// Config for the Radar chart
-var config = {
-    w: width,
-    h: height,
-    maxValue: 100,
-    levels: 5,
-    ExtraWidthX: 300
-}
 
 var svg = d3.select('body')
 	.selectAll('svg')
