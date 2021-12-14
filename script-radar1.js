@@ -8,6 +8,10 @@ var config = {
     maxValue: 100,
     levels: 5,
     ExtraWidthX: 300,
+    color: function(i) {
+      c = ['red', 'yellow', 'pink', 'green', 'blue', 'olive', 'aqua', 'cadetblue', 'crimson'];
+      return c[i];
+    }
 }
 
 var svg = d3.select('body')
