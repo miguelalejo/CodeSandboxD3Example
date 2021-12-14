@@ -14,7 +14,7 @@
 
   // get the data
   d3.csv(
-    "https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv",
+    "./data/1_OneNum.csv",
     function (data) {
       // X axis: scale and draw:
       var x = d3
