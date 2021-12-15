@@ -16,7 +16,7 @@ var xAxis = d3.axisBottom(x0);
 var yAxis = d3.axisLeft(y);
 
 var color = d3.scaleOrdinal()
-    .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"]);
+    .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0","#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
 var svg = d3.select('body').append("svg")
     .attr("width", width + margin.left + margin.right)
