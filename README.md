@@ -53,3 +53,17 @@ Paso 3: Elige el o los gráficos adecuados para explicar los datos.
 Paso 4: Eliminar el desorden. ¿ Hay  elementos que no aportan valor? Identificar los elementos innecesarios y eliminarlos de la visualización.
 Paso 5: Pensar como un diseñador. Pensar en cómo organizar los elementos para crear una estructura visual equilibrada.
 Paso 6:  Decidir : Títulos, subtítulo, y textos explicativos y de ayuda.
+
+## Fuentes de datos
+
+https://www.kaggle.com/c/kaggle-survey-2020/data?select=kaggle_survey_2020_responses.csv
+https://www.kaggle.com/andrewmvd/data-scientist-jobs
+
+
+## Procesamiento
+
+https://colab.research.google.com/drive/1qN7QmMiK6w3iJ4Gcu3iEoCPkEPwxk8wf?usp=sharing
+
+## URL visualización
+
+https://geed9.csb.app/pages/dashboard.html
