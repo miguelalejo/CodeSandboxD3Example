@@ -1,17 +1,22 @@
-var svg = d3.select("#pie-1")
-	.append("svg")
-	.append("g")
+var width = 960,
+    height = 450,
+	radius = Math.min(width, height) / 2;
 
+var svg = d3.select("body")
+	.append("svg")
+    .attr("width", width)
+    .attr("height", height)
+	.append("g");
 svg.append("g")
 	.attr("class", "slices");
 svg.append("g")
 	.attr("class", "labels");
 svg.append("g")
 	.attr("class", "lines");
+    
+    
+var percentageFormat = d3.format("%");
 
-var width = 960,
-    height = 450,
-	radius = Math.min(width, height) / 2;
 
 var pie = d3.layout.pie()
 	.sort(null)
@@ -22,6 +27,8 @@ var pie = d3.layout.pie()
 var arc = d3.svg.arc()
 	.outerRadius(radius * 0.8)
 	.innerRadius(radius * 0.4);
+    
+
 
 var outerArc = d3.svg.arc()
 	.innerRadius(radius * 0.9)
@@ -31,8 +38,9 @@ svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var key = function(d){ return d.data.label; };
 
-var color = d3.scale.ordinal()	
-	.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
+var color = d3.scale.ordinal()
+	.domain(["Lorem ipsum", "dolor sit", "amet", "consectetur", "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt"])
+	.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
 function randomData (){
 	var labels = color.domain();
@@ -41,11 +49,25 @@ function randomData (){
 	});
 }
 
+change(randomData());
+
+d3.select(".randomize")
+	.on("click", function(){
+		
+	});
+
 d3.csv( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/pie_totales.csv", function(data) {
-	change(data);
+    change(data);
+    svg
+    .selectAll('mySlices')
+    .data(pie(data), key)
+    .enter()
+    .append('text')
+    .text(function(d){ return d.data.percentage})
+    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")";  })
+    .style("text-anchor", "middle")
+    .style("font-size", 17);
 });
-
-
 function change(data) {
 
 	/* ------- PIE SLICES -------*/
@@ -111,7 +133,8 @@ function change(data) {
 
 	text.exit()
 		.remove();
-
+       
+        
 	/* ------- SLICE TO TEXT POLYLINES -------*/
 
 	var polyline = svg.select(".lines").selectAll("polyline")
@@ -136,3 +159,5 @@ function change(data) {
 	polyline.exit()
 		.remove();
 };
+
+
