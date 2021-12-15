@@ -1,8 +1,9 @@
-var width = 960,
+function crearPie(){
+    var width = 960,
     height = 450,
 	radius = Math.min(width, height) / 2;
 
-var svg = d3.select("body")
+var svg = d3.select("#pie-1")
 	.append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -38,8 +39,7 @@ svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var key = function(d){ return d.data.label; };
 
-var color = d3.scale.ordinal()
-	.domain(["Lorem ipsum", "dolor sit", "amet", "consectetur", "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt"])
+var color = d3.scale.ordinal()	
 	.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
 function randomData (){
@@ -49,25 +49,13 @@ function randomData (){
 	});
 }
 
-change(randomData());
-
+var percentageFormat = d3.format("%");
 d3.select(".randomize")
 	.on("click", function(){
 		
 	});
 
-d3.csv( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/pie_totales.csv", function(data) {
-    change(data);
-    svg
-    .selectAll('mySlices')
-    .data(pie(data), key)
-    .enter()
-    .append('text')
-    .text(function(d){ return d.data.percentage})
-    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")";  })
-    .style("text-anchor", "middle")
-    .style("font-size", 17);
-});
+
 function change(data) {
 
 	/* ------- PIE SLICES -------*/
@@ -161,3 +149,17 @@ function change(data) {
 };
 
 
+d3.csv( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/pie_totales.csv", function(data) {
+    change(data);
+    svg
+    .selectAll('mySlices')
+    .data(pie(data), key)
+    .enter()
+    .append('text')
+    .text(function(d){ return percentageFormat(d.data.percentage)})
+    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")";  })
+    .style("text-anchor", "middle")
+    .style("font-size", 17);
+});
+}
+crearPie();

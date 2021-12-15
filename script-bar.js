@@ -1,3 +1,4 @@
+function crearBarras(){
 var margin = {top: 20, right: 20, bottom: 30, left: 80},
     width = 900 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
@@ -196,3 +197,5 @@ d3.json("https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main
   legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
 
 });
+}
+crearBarras();
