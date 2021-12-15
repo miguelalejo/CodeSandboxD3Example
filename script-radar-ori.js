@@ -5,78 +5,26 @@ var svg = d3.select('body')
 	.attr("width", width)
 	.attr("height", height);
 
-function updateConfig(cfg) {
-	// adjust config parameters
-	cfg.maxValue =300;
-	cfg.w *= cfg.levelScale;
-	cfg.h *= cfg.levelScale;
-	cfg.paddingX = cfg.w * cfg.levelScale;
-	cfg.paddingY = cfg.h * cfg.levelScale;
-}
-
-  // build main vis components
-  function buildVisComponents(cfg,id) {		
-	//Initiate Legend	
-	var svg = d3.select(id)
-    .append('svg')
-	.attr("width", cfg.w + cfg.paddingX)
-	.attr("height", cfg.paddingY)
-	var legend = svg.append("g")
-	  .attr("class", "legend")
-	  .attr("transform", "translate(" + cfg.translateX + "," + cfg.translateY + ")")
-	  ;
-	  //Create colour squares
-	  legend.selectAll('rect')
-		.data(LegendOptions)
-		.enter()
-		.append("rect")
-		.attr("x", cfg.w - cfg.paddingX / 2)
-		.attr("y", function(d, i) { return i * 2 * cfg.legendBoxSize; })
-		.attr("width", cfg.legendBoxSize)
-		.attr("height", cfg.legendBoxSize)
-		.style("fill", function(d, i){ return cfg.colors(i);})
-		;
-	  //Create text next to squares
-	  legend.selectAll('text')
-		.data(LegendOptions)
-		.enter()
-		.append("text")
-		.attr("x", cfg.w - cfg.paddingX / 2 + (1.5 * cfg.legendBoxSize))
-		.attr("y", function(d, i) { return i * 2 * cfg.legendBoxSize; })
-		.attr("dy", 0.07 * cfg.legendBoxSize + "em")
-		.attr("font-size", "11px")
-		.attr("fill", "#737373")
-		.text(function(d) { return d; })
-		;	
-
-  }
 
 var RadarChartC = {
   draw: function(id, d, options){
-  var w = 300;
-  var h = 300;
   var cfg = {
 	 radius: 5,
-	 w: w,
-	 h: h,
+	 w: 600,
+	 h: 600,
 	 factor: 1,
 	 factorLegend: .85,
-	 levelScale: 0.65,
 	 levels: 3,
 	 maxValue: 0,
 	 radians: 2 * Math.PI,
-	 legendBoxSize: 10,
 	 opacityArea: 0.5,
 	 ToRight: 5,
 	 TranslateX: 80,
 	 TranslateY: 30,
-	 translateX: 10,
-	 translateY: 10,
 	 ExtraWidthX: 100,
 	 ExtraWidthY: 100,
 	 format:d3.format(''),
-	 color: d3.scale.category10(),
-	 colors: d3.scale.category10(),
+	 color: d3.scale.category10()
 	};
 	
 	if('undefined' !== typeof options){
@@ -268,44 +216,228 @@ var RadarChartC = {
 			   .style('opacity', 0)
 			   .style('font-family', 'sans-serif')
 			   .style('font-size', '13px');
-	updateConfig(cfg);
-	buildVisComponents(cfg,id);
   }
-  //Legend
- 
 };
 
-function crearLeyendas(data){
- var LegendOptions = [];
-  for (var key in data) {    
-    var value = data[key]["key"];
-	LegendOptions.push(value);
-	}
-	return LegendOptions;
-}
 
 d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-salario.json", function(data) {
-	LegendOptions = crearLeyendas(data);  
-	data = data.map(function(d) { return d.values });
-	RadarChartC.draw("#chart-1", data, config);
+  data = data.map(function(d) { return d.values })
+  RadarChartC.draw("#chart-1", data, config);
+  var colorscale = d3.scale.category10();
+    
+  var svg = d3.select('#body')
+    .selectAll('svg')
+    .append('svg')
+    .attr("width", config.w)
+    .attr("height", config.h)
+  
+  //Create the title for the legend
+  var text = svg.append("text")
+    .attr("class", "title")
+    .attr('transform', 'translate(90,0)') 
+    .attr("x", config.w - 70)
+    .attr("y", config.h - 10)
+    .attr("font-size", "12px")
+    .attr("fill", "#404040")
+    .text("What % of owners use a specific service in a week");
+      
+  //Initiate Legend	
+  var legend = svg.append("g")
+    .attr("class", "legend")
+    .attr("height", 100)
+    .attr("width", 200)
+    .attr('transform', 'translate(90,20)') 
+    ;
+    //Create colour squares
+    legend.selectAll('rect')
+      .data(LegendOptions)
+      .enter()
+      .append("rect")
+      .attr("x", config.w - 65)
+      .attr("y", function(d, i){ return i * 20;})
+      .attr("width", 10)
+      .attr("height", 10)
+      .style("fill", function(d, i){ return colorscale(i);})
+      ;
+    //Create text next to squares
+    legend.selectAll('text')
+      .data(LegendOptions)
+      .enter()
+      .append("text")
+      .attr("x", config.w - 52)
+      .attr("y", function(d, i){ return i * 20 + 9;})
+      .attr("font-size", "11px")
+      .attr("fill", "#737373")
+      .text(function(d) { return d; })
+      ;	
+
+
 });
 
 d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-owner.json", function(data) {
-	LegendOptions = crearLeyendas(data); 
-	data = data.map(function(d) { return d.values });
+  data = data.map(function(d) { return d.values })
   RadarChartC.draw("#chart-2", data, config);
- 
+  var colorscale = d3.scale.category10();
+  var w = 500,
+    h = 500;
+    
+  var svg = d3.select('#body')
+    .selectAll('svg')
+    .append('svg')
+    .attr("width", w+300)
+    .attr("height", h)
+  
+  //Create the title for the legend
+  var text = svg.append("text")
+    .attr("class", "title")
+    .attr('transform', 'translate(90,0)') 
+    .attr("x", w - 70)
+    .attr("y", 10)
+    .attr("font-size", "12px")
+    .attr("fill", "#404040")
+    .text("What % of owners use a specific service in a week");
+      
+  //Initiate Legend	
+  var legend = svg.append("g")
+    .attr("class", "legend")
+    .attr("height", 100)
+    .attr("width", 200)
+    .attr('transform', 'translate(90,20)') 
+    ;
+    //Create colour squares
+    legend.selectAll('rect')
+      .data(LegendOptions)
+      .enter()
+      .append("rect")
+      .attr("x", w - 65)
+      .attr("y", function(d, i){ return i * 20;})
+      .attr("width", 10)
+      .attr("height", 10)
+      .style("fill", function(d, i){ return colorscale(i);})
+      ;
+    //Create text next to squares
+    legend.selectAll('text')
+      .data(LegendOptions)
+      .enter()
+      .append("text")
+      .attr("x", w - 52)
+      .attr("y", function(d, i){ return i * 20 + 9;})
+      .attr("font-size", "11px")
+      .attr("fill", "#737373")
+      .text(function(d) { return d; })
+      ;	
+
+
 });
 
 d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-industry.json", function(data) {
-	LegendOptions = crearLeyendas(data); 
-	data = data.map(function(d) { return d.values });
-  RadarChartC.draw("#chart-3", data, config); 
+  data = data.map(function(d) { return d.values })
+  RadarChartC.draw("#chart-3", data, config);
+  var colorscale = d3.scale.category10();
+  var w = 500,
+    h = 500;
+    
+  var svg = d3.select('#body')
+    .selectAll('svg')
+    .append('svg')
+    .attr("width", w+300)
+    .attr("height", h)
+  
+  //Create the title for the legend
+  var text = svg.append("text")
+    .attr("class", "title")
+    .attr('transform', 'translate(90,0)') 
+    .attr("x", w - 70)
+    .attr("y", 10)
+    .attr("font-size", "12px")
+    .attr("fill", "#404040")
+    .text("What % of owners use a specific service in a week");
+      
+  //Initiate Legend	
+  var legend = svg.append("g")
+    .attr("class", "legend")
+    .attr("height", 100)
+    .attr("width", 200)
+    .attr('transform', 'translate(90,20)') 
+    ;
+    //Create colour squares
+    legend.selectAll('rect')
+      .data(LegendOptions)
+      .enter()
+      .append("rect")
+      .attr("x", w - 65)
+      .attr("y", function(d, i){ return i * 20;})
+      .attr("width", 10)
+      .attr("height", 10)
+      .style("fill", function(d, i){ return colorscale(i);})
+      ;
+    //Create text next to squares
+    legend.selectAll('text')
+      .data(LegendOptions)
+      .enter()
+      .append("text")
+      .attr("x", w - 52)
+      .attr("y", function(d, i){ return i * 20 + 9;})
+      .attr("font-size", "11px")
+      .attr("fill", "#737373")
+      .text(function(d) { return d; })
+      ;	
+
 
 });
 
 d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-size-company.json", function(data) {
-	LegendOptions = crearLeyendas(data); 
-	data = data.map(function(d) { return d.values });
+  data = data.map(function(d) { return d.values })
   RadarChartC.draw("#chart-4", data, config);
+  var colorscale = d3.scale.category10();
+  var w = 500,
+    h = 500;
+    
+  var svg = d3.select('#body')
+    .selectAll('svg')
+    .append('svg')
+    .attr("width", w+300)
+    .attr("height", h)
+  
+  //Create the title for the legend
+  var text = svg.append("text")
+    .attr("class", "title")
+    .attr('transform', 'translate(90,0)') 
+    .attr("x", w - 70)
+    .attr("y", 10)
+    .attr("font-size", "12px")
+    .attr("fill", "#404040")
+    .text("What % of owners use a specific service in a week");
+      
+  //Initiate Legend	
+  var legend = svg.append("g")
+    .attr("class", "legend")
+    .attr("height", 100)
+    .attr("width", 200)
+    .attr('transform', 'translate(90,20)') 
+    ;
+    //Create colour squares
+    legend.selectAll('rect')
+      .data(LegendOptions)
+      .enter()
+      .append("rect")
+      .attr("x", w - 65)
+      .attr("y", function(d, i){ return i * 20;})
+      .attr("width", 10)
+      .attr("height", 10)
+      .style("fill", function(d, i){ return colorscale(i);})
+      ;
+    //Create text next to squares
+    legend.selectAll('text')
+      .data(LegendOptions)
+      .enter()
+      .append("text")
+      .attr("x", w - 52)
+      .attr("y", function(d, i){ return i * 20 + 9;})
+      .attr("font-size", "11px")
+      .attr("fill", "#737373")
+      .text(function(d) { return d; })
+      ;	
+
+
 });

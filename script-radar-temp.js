@@ -20,7 +20,7 @@ function updateConfig(cfg) {
 	var svg = d3.select(id)
     .append('svg')
 	.attr("width", cfg.w + cfg.paddingX)
-	.attr("height", cfg.paddingY)
+	.attr("height", cfg.h + cfg.paddingY)
 	var legend = svg.append("g")
 	  .attr("class", "legend")
 	  .attr("transform", "translate(" + cfg.translateX + "," + cfg.translateY + ")")
@@ -34,7 +34,7 @@ function updateConfig(cfg) {
 		.attr("y", function(d, i) { return i * 2 * cfg.legendBoxSize; })
 		.attr("width", cfg.legendBoxSize)
 		.attr("height", cfg.legendBoxSize)
-		.style("fill", function(d, i){ return cfg.colors(i);})
+		.style("fill", function(d, i){ return colorscale(i);})
 		;
 	  //Create text next to squares
 	  legend.selectAll('text')
@@ -61,7 +61,7 @@ var RadarChartC = {
 	 h: h,
 	 factor: 1,
 	 factorLegend: .85,
-	 levelScale: 0.65,
+	 levelScale: 0.85,
 	 levels: 3,
 	 maxValue: 0,
 	 radians: 2 * Math.PI,
@@ -70,8 +70,8 @@ var RadarChartC = {
 	 ToRight: 5,
 	 TranslateX: 80,
 	 TranslateY: 30,
-	 translateX: 10,
-	 translateY: 10,
+	 translateX: 0,
+	 translateY: 0,
 	 ExtraWidthX: 100,
 	 ExtraWidthY: 100,
 	 format:d3.format(''),
@@ -275,37 +275,9 @@ var RadarChartC = {
  
 };
 
-function crearLeyendas(data){
- var LegendOptions = [];
-  for (var key in data) {    
-    var value = data[key]["key"];
-	LegendOptions.push(value);
-	}
-	return LegendOptions;
-}
 
 d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-salario.json", function(data) {
-	LegendOptions = crearLeyendas(data);  
-	data = data.map(function(d) { return d.values });
-	RadarChartC.draw("#chart-1", data, config);
-});
-
-d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-owner.json", function(data) {
-	LegendOptions = crearLeyendas(data); 
-	data = data.map(function(d) { return d.values });
-  RadarChartC.draw("#chart-2", data, config);
- 
-});
-
-d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-industry.json", function(data) {
-	LegendOptions = crearLeyendas(data); 
-	data = data.map(function(d) { return d.values });
-  RadarChartC.draw("#chart-3", data, config); 
-
-});
-
-d3.json( "https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/radar-size-company.json", function(data) {
-	LegendOptions = crearLeyendas(data); 
-	data = data.map(function(d) { return d.values });
-  RadarChartC.draw("#chart-4", data, config);
+  data = data.map(function(d) { return d.values })
+  RadarChartC.draw("#chart-1", data, config);
+  
 });
