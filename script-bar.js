@@ -6,7 +6,7 @@ var x0 = d3.scaleBand()
 .rangeRound([0, width])
 .paddingInner(0.1);
 
-var x1 = d3.scaleOrdinal();
+var x1 = d3.scaleBand();
 
 var y = d3.scaleLinear()
     .range([height, 0]);
@@ -24,13 +24,13 @@ var svg = d3.select('body').append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
-d3.json("https://bl.ocks.org/bricedev/raw/0d95074b6d83a77dc3ad/data.json", function(error, data) {
+d3.json("https://raw.githubusercontent.com/miguelalejo/CodeSandboxD3Example/main/data/bar-1.json", function(error, data) {
 
   var categoriesNames = data.map(function(d) { return d.categorie; });
   var rateNames = data[0].values.map(function(d) { return d.rate; });
 
   x0.domain(categoriesNames);
-  x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()]);
+  x1.domain(rateNames).rangeRound([0, x0.bandwidth()]);
   y.domain([0, d3.max(data, function(categorie) { return d3.max(categorie.values, function(d) { return d.value; }); })]);
 
   svg.append("g")
@@ -61,7 +61,7 @@ d3.json("https://bl.ocks.org/bricedev/raw/0d95074b6d83a77dc3ad/data.json", funct
   slice.selectAll("rect")
       .data(function(d) { return d.values; })
   .enter().append("rect")
-      .attr("width", x1.rangeBand())
+      .attr("width", x1.bandwidth())
       .attr("x", function(d) { return x1(d.rate); })
       .style("fill", function(d) { return color(d.rate) })
       .attr("y", function(d) { return y(0); })
